@@ -1,0 +1,5 @@
+bin.pos
+build/
+bin/
+.idea/
+.gradle/

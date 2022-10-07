@@ -1,0 +1,10 @@
+version: '3.0'
+services:
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+      - "3307:3307"
+    command: "mariadbd --log-bin --log-basename=cdc --binlog-format=row --binlog-row-image=full"
+    environment:
+      - "MARIADB_ROOT_PASSWORD=mariadb1"
