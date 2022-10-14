@@ -4,7 +4,26 @@ services:
     image: mariadb:latest
     ports:
       - "3306:3306"
-      - "3307:3307"
     command: "mariadbd --log-bin --log-basename=cdc --binlog-format=row --binlog-row-image=full"
     environment:
-      - "MARIADB_ROOT_PASSWORD=mariadb1"
+      - MARIADB_ROOT_PASSWORD=mariadb1
+  cdc:
+    build: cdc
+    depends_on:
+      - mariadb
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_USER=root
+      - MARIADB_PASSWORD=mariadb1
+  producer:
+    build: producer
+    depends_on:
+      - mariadb
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_USER=root
+      - MARIADB_PASSWORD=mariadb1
+  zookeeper:
+    image: bitnami/zookeeper:latest
+  kafka:
+    image: bitnami/kafka:latest

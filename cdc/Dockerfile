@@ -10,3 +10,4 @@ RUN ./gradlew bootJar
 FROM amazoncorretto:18 AS RUN
 COPY --from=build /app/build/libs/cdc.jar /app/
 WORKDIR /app/
+ENTRYPOINT [ "java", "-jar", "cdc.jar" ]
